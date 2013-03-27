@@ -348,15 +348,15 @@ class TestTemplateTags(TestCase):
                        '<li class="section1 first">'
                          '<a href="/section1/">section1</a>'
                          '<ul>'
-                           '<li class="sub1 first">'
+                           '<li class="sub1 first leaf">'
                              '<a href="/section1/sub1/">sub1</a>'
                            '</li>'
-                           '<li class="sub2 last">'
+                           '<li class="sub2 last leaf">'
                              '<a href="/section1/sub2/">sub2</a>'
                            '</li>'
                          '</ul>'
                        '</li>'
-                       '<li class="section2 last">'
+                       '<li class="section2 last leaf">'
                          '<a href="/section2/">section2</a>'
                        '</li>'
                      '</ul>'
@@ -387,15 +387,15 @@ class TestTemplateTags(TestCase):
                    '<li class="section1 first">'
                      '<a href="/section1/">section1</a>'
                      '<ul>'
-                       '<li class="sub1 first">'
+                       '<li class="sub1 first leaf">'
                          '<a href="/section1/sub1/">sub1</a>'
                        '</li>'
-                       '<li class="sub2 last">'
+                       '<li class="sub2 last leaf">'
                          '<a href="/section1/sub2/">sub2</a>'
                        '</li>'
                      '</ul>'
                    '</li>'
-                   '<li class="section2 last">'
+                   '<li class="section2 last leaf">'
                      '<a href="/section2/">section2</a>'
                    '</li>'
                  '</ul>'))
@@ -412,7 +412,7 @@ class TestTemplateTags(TestCase):
                    '<li class="section1 first">'
                      '<a href="/section1/">section1</a>'
                    '</li>'
-                   '<li class="section2 last">'
+                   '<li class="section2 last leaf">'
                      '<a href="/section2/">section2</a>'
                    '</li>'
                  '</ul>'))
@@ -430,14 +430,15 @@ class TestTemplateTags(TestCase):
             'user': self.get_non_staff_user(),
             'fiber_page': Page.objects.get_by_url('/section1/sub1/'),
         })
+
         with self.assertNumQueries(2):
             self.assertEquals(
                 condense_html_whitespace(t.render(c)),
                 ('<ul>'
-                   '<li class="section1 first">'
+                   '<li class="section1 first leaf">'
                      '<a href="/section1/">section1</a>'
                    '</li>'
-                   '<li class="section2 last">'
+                   '<li class="section2 last leaf">'
                      '<a href="/section2/">section2</a>'
                    '</li>'
                  '</ul>'))
@@ -452,10 +453,10 @@ class TestTemplateTags(TestCase):
             self.assertEquals(
                 condense_html_whitespace(t.render(c)),
                 ('<ul>'
-                   '<li class="sub1 first">'
+                   '<li class="sub1 first leaf">'
                      '<a href="/section1/sub1/">sub1</a>'
                    '</li>'
-                   '<li class="sub2 last">'
+                   '<li class="sub2 last leaf">'
                      '<a href="/section1/sub2/">sub2</a>'
                    '</li>'
                  '</ul>'))
@@ -480,9 +481,9 @@ class TestTemplateTags(TestCase):
             self.assertEquals(
                 condense_html_whitespace(t.render(c)),
                 ('<ul>'
-                 '<li class="home first last">'
-                 '<a href="/">home</a>'
-                 '</li>'
+                    '<li class="home first last leaf">'
+                        '<a href="/">home</a>'
+                    '</li>'
                  '</ul>'))
 
     def test_show_admin_menu_all(self):
@@ -507,15 +508,15 @@ class TestTemplateTags(TestCase):
                        '<li class="section1 first">'
                          '<a href="/section1/" data-fiber-data=\'{ "can_edit": true, "type": "page", "id": 3, "parent_id": 2, "url": "%(fiber_admin_page_edit_url_section1)s", "add_url": "%(fiber_admin_page_add_url)s" }\'>section1</a>'
                          '<ul data-fiber-data=\'{ "type": "page", "add_url": "%(fiber_admin_page_add_url)s", "parent_id": 3 }\'>'
-                           '<li class="sub1 first">'
+                           '<li class="sub1 first leaf">'
                              '<a href="/section1/sub1/" data-fiber-data=\'{ "can_edit": true, "type": "page", "id": 5, "parent_id": 3, "url": "%(fiber_admin_page_edit_url_sub1)s", "add_url": "%(fiber_admin_page_add_url)s" }\'>sub1</a>'
                            '</li>'
-                           '<li class="sub2 last">'
+                           '<li class="sub2 last leaf">'
                              '<a href="/section1/sub2/" data-fiber-data=\'{ "can_edit": true, "type": "page", "id": 6, "parent_id": 3, "url": "%(fiber_admin_page_edit_url_sub2)s", "add_url": "%(fiber_admin_page_add_url)s" }\'>sub2</a>'
                            '</li>'
                          '</ul>'
                        '</li>'
-                       '<li class="section2 last">'
+                       '<li class="section2 last leaf">'
                          '<a href="/section2/" data-fiber-data=\'{ "can_edit": true, "type": "page", "id": 4, "parent_id": 2, "url": "%(fiber_admin_page_edit_url_section2)s", "add_url": "%(fiber_admin_page_add_url)s" }\'>section2</a>'
                        '</li>'
                      '</ul>'
